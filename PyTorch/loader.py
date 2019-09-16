@@ -5,7 +5,7 @@ from sklearn.utils import shuffle
 from convert import *
 
 
-datapath = ''
+datapath = '../Datasets/'
 
 def preprocess(text):
   text = text.translate(str.maketrans('', '', string.punctuation))
