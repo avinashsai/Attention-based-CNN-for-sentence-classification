@@ -48,13 +48,13 @@ class ABCNN(nn.Module):
         attout = self.tanh(self.attlinear1(inp)).view(-1,self.maxlen-1,self.atthidden)
         
         if(curindex==0):
-          score = torch.stack([math.pow((1-self.lamda),abs(curindex-index)-1) * attout[:,index-1] for index in range(curindex+1,self.maxlen)],1)
+			score = torch.stack([math.pow((1-self.lamda),abs(curindex-index)-1) * attout[:,index-1] for index in range(curindex+1,self.maxlen)],1)
         elif(curindex==self.maxlen-1):
-          score = torch.stack([math.pow((1-self.lamda),abs(curindex-index)-1) * attout[:,index] for index in range(0,curindex)],1)
+			score = torch.stack([math.pow((1-self.lamda),abs(curindex-index)-1) * attout[:,index] for index in range(0,curindex)],1)
         else:
-          score1 = torch.stack([math.pow((1-self.lamda),abs(curindex-index-1)) * attout[:,index] for index in range(0,curindex)],1)
-          score2 = torch.stack([math.pow((1-self.lamda),abs(curindex-index-1)) * attout[:,index-1] for index in range(curindex+1,self.maxlen)],1)
-          score = torch.cat([score1,score2],1)
+			score1 = torch.stack([math.pow((1-self.lamda),abs(curindex-index-1)) * attout[:,index] for index in range(0,curindex)],1)
+			score2 = torch.stack([math.pow((1-self.lamda),abs(curindex-index-1)) * attout[:,index-1] for index in range(curindex+1,self.maxlen)],1)
+			score = torch.cat([score1,score2],1)
           
         attout = self.attlinear2(score).squeeze(2)
         alpha = F.softmax(attout,1)
