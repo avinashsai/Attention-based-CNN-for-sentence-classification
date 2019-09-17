@@ -31,24 +31,28 @@ def main():
     parser.add_argument('-lam','--lamda',type=float,help='distance decay',default=0.0)
 
     args = parser.parse_args()
+    
     if(args.dataset=='trec'):
         senlen = 10
         numclasses = 6
         trainloader,valloader,testloader,embedmatrix = load_trec(senlen)
         testacc = trainmodel(senlen,embedmatrix,numclasses,args.lamda,args.runs,trainloader,valloader,testloader)
         print("Accuracy on TREC Dataset {} ".format(testacc))
+
     elif(args.dataset=='mr'):
         senlen = 30
         numclasses = 2
         trainloader,valloader,testloader,embedmatrix = load_mr(senlen)
         testacc = trainmodel(senlen,embedmatrix,numclasses,args.lamda,args.runs,trainloader,valloader,testloader)
         print("Accuracy on MR Dataset {} ".format(testacc))
+
     elif(args.dataset=='sst5'):
     	senlen = 20
     	numclasses = 5
 		trainloader,valloader,testloader,embedmatrix = load_sst5(senlen)
 		testacc = trainmodel(senlen,embedmatrix,numclasses,args.lamda,args.runs,trainloader,valloader,testloader)
 		print("Accuracy on SST-5 Dataset {} ".format(testacc))
+
 	elif(args.dataset=='sst2'):
 		senlen = 20
 		numclasses = 2
