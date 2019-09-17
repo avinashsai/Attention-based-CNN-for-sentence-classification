@@ -49,15 +49,16 @@ def main():
     elif(args.dataset=='sst5'):
     	senlen = 20
     	numclasses = 5
-		trainloader,valloader,testloader,embedmatrix = load_sst5(senlen)
-		testacc = trainmodel(senlen,embedmatrix,numclasses,args.lamda,args.runs,trainloader,valloader,testloader)
-		print("Accuracy on SST-5 Dataset {} ".format(testacc))
-
-	elif(args.dataset=='sst2'):
-		senlen = 20
-		numclasses = 2
-		trainloader,valloader,testloader,embedmatrix = load_sst2(senlen)
-		testacc = trainmodel(senlen,embedmatrix,numclasses,args.lamda,args.runs,trainloader,valloader,testloader)
-		print("Accuracy on SST-2 Dataset {} ".format(testacc))
+	trainloader,valloader,testloader,embedmatrix = load_sst5(senlen)
+	testacc = trainmodel(senlen,embedmatrix,numclasses,args.lamda,args.runs,trainloader,valloader,testloader)
+	print("Accuracy on SST-5 Dataset {} ".format(testacc))
+	
+    elif(args.dataset=='sst2'):
+	senlen = 20
+	numclasses = 2
+	trainloader,valloader,testloader,embedmatrix = load_sst2(senlen)
+	testacc = trainmodel(senlen,embedmatrix,numclasses,args.lamda,args.runs,trainloader,valloader,testloader)
+	print("Accuracy on SST-2 Dataset {} ".format(testacc))
+	
 if __name__ == "__main__":
     main()
