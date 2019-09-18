@@ -2,6 +2,45 @@
 # Getting Started
 This is the code for the paper https://www.isca-speech.org/archive/Interspeech_2016/pdfs/0354.PDF. This is one of the few papers that applies attention on word embeddings.
 
+# Requirements
+
+```
+python>=3.5
+
+pytorch>=1.0.0
+
+numpy
+
+sklearn
+
+```
+# How to run
+
+## Step:1
+
+Download glove 840B vectors https://nlp.stanford.edu/projects/glove/ . Unzip it and mention the file path in the variable **vecpath** in **vector.py** in the PyTorch Folder.
+
+## Step:2
+
+```
+git clone https://github.com/avinashsai/Attention-based-CNN-for-sentence-classification.git
+
+cd PyTorch
+
+```
+
+## Step:3
+
+```
+python main.py --dataset  --runs  --lamda 
+
+dataset [Training Dataset] options (trec/mr/sst5/sst2 : default - trec)
+
+runs [Number of average runs to report results] options ( 5/10 : default - 10)
+
+lamda [ Distance decay (λ) ] options ( [0,1) : default - 0.0 ; For TREC Best lamda is 0.02 )
+
+```
 # Results
 
 For TREC Dataset:
