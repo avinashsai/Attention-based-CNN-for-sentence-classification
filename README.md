@@ -12,7 +12,6 @@ pytorch>=1.0.0
 numpy
 
 sklearn
-
 ```
 # How to run
 
@@ -26,7 +25,6 @@ Download glove 840B vectors https://nlp.stanford.edu/projects/glove/ . Unzip it 
 git clone https://github.com/avinashsai/Attention-based-CNN-for-sentence-classification.git
 
 cd PyTorch
-
 ```
 
 ## Step:3
@@ -39,7 +37,6 @@ dataset [Training Dataset] options (trec/mr/sst5/sst2 : default - trec)
 runs [Number of average runs to report results] options ( 5/10 : default - 10)
 
 lamda [ Distance decay (λ) ] options ( [0,1) : default - 0.0 ; For TREC Best lamda is 0.02 )
-
 ```
 # Results
 
