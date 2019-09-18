@@ -40,25 +40,25 @@ class ABCNN(nn.Module):
     def attentionword(self,curembed,outputs,curindex):
         inp1 = outputs[:,curindex,:].unsqueeze(1).repeat(1,self.maxlen-1,1)
         inp2 = torch.cat([outputs[:,:curindex,:],outputs[:,curindex+1:,:]],dim=1)
-        
+
         inp = torch.cat([inp1,inp2],dim=2)
-        
-     
+
+
         inp = torch.reshape(inp,(-1,self.embeddim*2))
         attout = self.tanh(self.attlinear1(inp)).view(-1,self.maxlen-1,self.atthidden)
-        
+
         if(curindex==0):
-			score = torch.stack([math.pow((1-self.lamda),abs(curindex-index)-1) * attout[:,index-1] for index in range(curindex+1,self.maxlen)],1)
+            score = torch.stack([math.pow((1-self.lamda),abs(curindex-index)-1) * attout[:,index-1] for index in range(curindex+1,self.maxlen)],1)
         elif(curindex==self.maxlen-1):
-			score = torch.stack([math.pow((1-self.lamda),abs(curindex-index)-1) * attout[:,index] for index in range(0,curindex)],1)
+            score = torch.stack([math.pow((1-self.lamda),abs(curindex-index)-1) * attout[:,index] for index in range(0,curindex)],1)
         else:
-			score1 = torch.stack([math.pow((1-self.lamda),abs(curindex-index-1)) * attout[:,index] for index in range(0,curindex)],1)
-			score2 = torch.stack([math.pow((1-self.lamda),abs(curindex-index-1)) * attout[:,index-1] for index in range(curindex+1,self.maxlen)],1)
-			score = torch.cat([score1,score2],1)
-          
+            score1 = torch.stack([math.pow((1-self.lamda),abs(curindex-index-1)) * attout[:,index] for index in range(0,curindex)],1)
+            score2 = torch.stack([math.pow((1-self.lamda),abs(curindex-index-1)) * attout[:,index-1] for index in range(curindex+1,self.maxlen)],1)
+            score = torch.cat([score1,score2],1)
+
         attout = self.attlinear2(score).squeeze(2)
         alpha = F.softmax(attout,1)
-        
+
         out = alpha.unsqueeze(2) * inp2
         out = torch.sum(out,1)
         return out
